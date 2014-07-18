@@ -1,0 +1,47 @@
+{
+    "name" : "mrzen/trovebox",
+    "homepage" : "https://github.com/mrzen/trovebox-php",
+
+    "description" : "Trovebox Client for PHP using Guzzle",
+
+    "type" : "library",
+
+    "keywords" : ["image","photo","trovebox","REST","API"],
+
+    "license" : "GNU GPL v2 or later",
+
+    "authors" : [
+        {
+            "name" : "Mr. Zen. Ltd",
+            "homepage" : "http://mrzen.com/"
+        }
+    ],
+
+
+    "support" : {
+        "issues" : "https://github.com/mrzen/trovebox-php/issues"
+    },
+
+
+    "require" : {
+        "php" : ">= 5.4.0",
+        "guzzle/guzzle" : ">=3.7.0,<4.0"
+    },
+
+    "suggest" : {
+        "monolog/monolog" : "Logging support"
+    },
+
+
+    "autoload" : {
+        "psr-0" : {
+            "Trovebox" : "src/"
+        }
+    }
+}
+    
+
+
+
+
+            
