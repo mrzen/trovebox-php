@@ -72,7 +72,9 @@ class TroveboxClientTest extends \PHPUnit_Framework_TestCase {
      */
     public function testInitializesWithJSONFilePath()
     {
-        $client = new Client( dirname(__FILE__) . 'test_config.json');
+        $file_path = dirname(dirname(__DIR__)) . '/test_config.dist.json';
+
+        $client = new Client($file_path);
 
         $this->assertInstanceOf('Trovebox\Client', $client);
     }

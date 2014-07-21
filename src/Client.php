@@ -20,17 +20,19 @@
 
 namespace Trovebox;
 
+use Trovebox\Hello\Hello;
+use Trovebox\Photo\PhotoClient;
+
+use GuzzleHttp\Subscriber\Oauth\Oauth1;
+
 /**
  * Main Trovebox Client Class
  *
  */
 class Client extends \GuzzleHttp\Client {
     
-    /**
-     * @var Configuration
-     */
-    private $_configuration;
-
+    use Hello;
+    use PhotoClient;
     
     /**
      * Create a Client
@@ -42,7 +44,13 @@ class Client extends \GuzzleHttp\Client {
         // Load the appropreate configuration
         $configuration = $this->getConfig($config);
 
-        parent::__construct((array)$configuration);
+        parent::__construct($configuration);
+
+        // Attach the OAuth
+        if(isset($configuration['oauth'])) {
+            $oauth = new Oauth1($configuration['oauth']);
+            $this->getEmitter()->attach($oauth);
+        }
     }
 
 
@@ -81,10 +89,10 @@ class Client extends \GuzzleHttp\Client {
 
                 if (file_exists($config)) {
                     // $config is path to configuration file
-                    return json_decode(file_get_contents($config));
+                    return json_decode(file_get_contents($config),true);
                 } else {
                     // $config is configuration data as JSON
-                    return json_decode($config);
+                    return json_decode($config,true);
                 }
             }
 

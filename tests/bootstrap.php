@@ -21,12 +21,13 @@
 /**
  * Test Bootstrapper
  */
-namespace Trovebox\Test;
+namespace Trovebox\Tests;
 
 $loaderPath = dirname(__DIR__) . '/vendor/autoload.php'; 
 $loader = require $loaderPath;
-$loader->addPsr4('Trovebox\Tests\\', dirname(__DIR__) . '/tests/Trovebox');
 
+
+define('MOCK', dirname(__DIR__) . '/tests/mock/');
 
 use GuzzleHttp\Subscriber\Mock;
 use GuzzleHttp\Subscriber\History;
@@ -59,12 +60,19 @@ if (!isset($_SERVER['CONFIG'])) {
     }
 }
 
-
+function getTestClient()
+{
 // Instantiate the client
-$config = ( isset($_SERVER['CONFIG']) ? $_SERVER['CONFIG'] : 'test_services.dist.json');
-$trovebox = new \Trovebox\Client($config);
+    $config = ( isset($_SERVER['CONFIG']) ? $_SERVER['CONFIG'] : 'test_config.dist.json');
+    $trovebox = new \Trovebox\Client($config);
 
 // Enable History
-$history = new History();
-$trovebox->getEmitter()->attach($history);
-$trovebox->getEmitter()->attach(new LogSubscriber());
+    $history = new History();
+    $trovebox->getEmitter()->attach($history);
+    $trovebox->getEmitter()->attach(new LogSubscriber());
+
+    return $trovebox;
+}
+
+
+$loader->addPsr4('Trovebox\Tests\\', dirname(__DIR__) . '/tests/Trovebox');

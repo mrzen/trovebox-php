@@ -18,26 +18,21 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, US.A
  */
 
+
 /**
- * Photo Client Methods
+ * Trait for Hello API call
  */
-namespace Trovebox\Photo;
+namespace Trovebox\Hello;
 
-use Trovebox\Models\Photo;
+trait Hello {
 
-trait PhotoClient {
+    public function hello($auth = false) {
 
-    public function photos(array $query_params = []) {
-        $response = $this->get('/photos/list.json', ['query' => $query_params]);
-
-        $data = $response->json();
-        $photos = [];
-
-        foreach($data['result'] as $result) {
-            $photos[] = new Photo($result);
-        }
-
-        return $photos;
+        $response = $this->get('/hello.json', ['query' => ['auth' => $auth]]);
+        
+        return $response->json();
     }
 
 }
+
+    

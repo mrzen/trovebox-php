@@ -18,26 +18,39 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, US.A
  */
 
+namespace Trovebox\Tests\Hello;
+
+use GuzzleHttp\Subscriber\Mock;
+use GuzzleHttp\Message\Response;
+
+use GuzzleHttp\Stream\Stream;
+
 /**
- * Photo Client Methods
+ * Test the `hello.json` call
+ *
+ * @covers Trovebox\Hello\HelloClient
  */
-namespace Trovebox\Photo;
+class HelloTest extends \PHPUnit_Framework_TestCase {
 
-use Trovebox\Models\Photo;
+    public function testHelloWithoutAuth()
+    {
 
-trait PhotoClient {
+        // Set up the mock subscriber
+        $mock = new Mock([
+            MOCK . "hello/hello.txt"
+        ]);
 
-    public function photos(array $query_params = []) {
-        $response = $this->get('/photos/list.json', ['query' => $query_params]);
 
-        $data = $response->json();
-        $photos = [];
+        $trovebox = \Trovebox\Tests\getTestClient();
+        $trovebox->getEmitter()->attach($mock);
 
-        foreach($data['result'] as $result) {
-            $photos[] = new Photo($result);
-        }
+        // Run the transaction
+        $response = $trovebox->hello();
 
-        return $photos;
+        $this->assertEquals($response['message'] , 'Hello, World!');
+
+
     }
+    
 
 }

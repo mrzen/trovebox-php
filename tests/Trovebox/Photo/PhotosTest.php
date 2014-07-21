@@ -19,25 +19,40 @@
  */
 
 /**
- * Photo Client Methods
+ * Photo list Tests
  */
-namespace Trovebox\Photo;
 
-use Trovebox\Models\Photo;
+namespace Trovebox\Tests\Photo;
 
-trait PhotoClient {
 
-    public function photos(array $query_params = []) {
-        $response = $this->get('/photos/list.json', ['query' => $query_params]);
+use GuzzleHttp\Subscriber\Mock;
 
-        $data = $response->json();
-        $photos = [];
 
-        foreach($data['result'] as $result) {
-            $photos[] = new Photo($result);
-        }
+class PhotosTest extends \PHPUnit_Framework_TestCase {
 
-        return $photos;
+    /**
+     * Test we can list all photos
+     */
+    public function testListAllPhotos()
+    {
+
+        $trovebox = \Trovebox\Tests\getTestClient();
+
+        $mock = new Mock([
+            MOCK . "photo/list_all_photos.txt"
+        ]);
+
+
+        $trovebox->getEmitter()->attach($mock);
+        
+        $photos = $trovebox->photos();
+
+        $this->assertTrue(is_array($photos));
+
+        // Ensure the response is an array of Photos
+        $this->assertInstanceOf('Trovebox\Models\Photo', $photos[0]);
+
+                
     }
-
+    
 }

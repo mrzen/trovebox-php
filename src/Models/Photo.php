@@ -19,25 +19,18 @@
  */
 
 /**
- * Photo Client Methods
+ * Photo Model
  */
-namespace Trovebox\Photo;
 
-use Trovebox\Models\Photo;
+namespace Trovebox\Models;
 
-trait PhotoClient {
-
-    public function photos(array $query_params = []) {
-        $response = $this->get('/photos/list.json', ['query' => $query_params]);
-
-        $data = $response->json();
-        $photos = [];
-
-        foreach($data['result'] as $result) {
-            $photos[] = new Photo($result);
+class Photo extends \stdClass {
+    
+    
+    public function __construct(array $data = []) {
+        foreach($data as $key => $value) {
+            $this->$key = $value;
         }
-
-        return $photos;
     }
 
 }

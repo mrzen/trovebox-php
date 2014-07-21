@@ -1,0 +1,13 @@
+HTTP/1.1 200 OK
+Content-Type: application/json
+Server: MockServer
+Date: Mon, 01 Jan 2020 00:00:01 GMT
+
+{
+        "message" : "Hello, World!",
+        "code" : 200,
+        "result":
+        {
+                "__route__" : "\/hello.json"
+        }
+}

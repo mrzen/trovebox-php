@@ -1,9 +1,0 @@
-{
-    "includes" : ["_trovebox"],
-    "services" : {
-        "default_settings" : {
-
-        }
-    }
-}
-                
