@@ -9,7 +9,8 @@ use Guzzle\Service\Builder\ServiceBuilderLoader;
 /**
  * Base classs for interacting with web service clients
  */
-class Trovebox extends ServiceBuilder {
+class Trovebox extends ServiceBuilder
+{
 
 
     /**
@@ -30,6 +31,7 @@ class Trovebox extends ServiceBuilder {
      * @param array $globalParameters Global parameters to pass to every services as it is
      *                                instantiated.
      *
+     * @return Trovebox
      */
     public static function factory($config = null, array $globalParameters = array())
     {
@@ -57,5 +59,31 @@ class Trovebox extends ServiceBuilder {
 
     
     }
+
+
+    /**
+     * Load the full path to the default service builder definition file
+     *
+     * @return string Full path to the default service builder definition
+     */
+    public static function getDefaultServiceDefinition()
+    {
+        return __DIR__ . '/Resources/trovebox-config.php';
+        
+    }
+
+    /**
+     * Get the configuration for the service builder
+     *
+     * @return array Service builder configuration
+     */
+    public function getConfig()
+    {
+        return $this->builderConfig;
+    }
+    
+
+    
+    
 
 }

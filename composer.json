@@ -28,6 +28,11 @@
         "guzzle/guzzle" : ">=3.7.0,<4.0"
     },
 
+    "require-dev" : {
+        "monolog/monolog" : "1.4.*",
+        "phpunit/phpunit" : "4.*"
+    },
+
     "suggest" : {
         "monolog/monolog" : "Logging support"
     },
