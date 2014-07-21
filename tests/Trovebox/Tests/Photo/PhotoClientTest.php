@@ -9,6 +9,9 @@ use Guzzle\Http\Url;
 use Guzzle\Plugin\History\HistoryPlugin;
 use Guzzle\Plugin\Mock\MockPlugin;
 
+
+use Trovebox\Photo\PhotoClient;
+
 /**
  * Photo test case
  *
@@ -17,7 +20,21 @@ use Guzzle\Plugin\Mock\MockPlugin;
 class PhotoTestCase extends \Guzzle\Tests\GuzzleTestCase
 {
 
+    /**
+     * @covers Trovebox\Photo\PhotoClient::factory
+     */
+    public function testFactoryInitializesClient()
+    {
+        $cleint = PhotoClient::factory(array(
+            'consumer_key' => 'wow',
+            'consumer_secret' => 'much test',
+            'authorization_token' => 'very mock',
+            'authorization_secret' => 'so tdd'
+        ));
 
+    }
+
+    
     
 
 }

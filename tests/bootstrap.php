@@ -1,79 +1,72 @@
 <?php
 
 /**
- * Test bootstrapper
+ * © 2014 Mr.Zen Ltd
  *
- * Configures the environment for testing and injects mockups.
+ * This program is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU General Public License
+ * as published by the Free Software Foundation; either version 2
+ * of the License, or (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, US.A
  */
 
+/**
+ * Test Bootstrapper
+ */
+
+namespace Trovebox\Test;
+
+use GuzzleHttp\Subscriber\Mock;
+use GuzzleHttp\Subscriber\History;
+use GuzzleHttp\Message\Response;
 
 error_reporting(-1);
-
-// Set our timezone to UTC
 date_default_timezone_set('UTC');
 
 
-// Ensure that composer has been run for dependencies
+// Ensure composer is up-to-date
 if (!file_exists(dirname(__DIR__) . '/composer.lock')) {
-    die(<<<MESSAGE
-'composer.lock' file not found.
-This indicates that dependencies have not been installed.
-Use `composer install` to install the required dependencies.
-See http://getcomposer.org for more information on installing and using composer.
-MESSAGE
-    );
+    die("Dependencies must be installed using composer:\n\nphp composer.phar install\n\n"
+        . "See http://getcomposer.org for help with installing composer\n");
 }
 
-
-// Include the phar files if testing against phars
+// Include the composer autoloader
 if (get_cfg_var('trovebox_phar')) {
-    include dirname(__DIR__) . '/build/' . get_cfg_var('trovebox_phar');
+    require dirname(__DIR__) . '/vendor/autoload.php';
+    $loader->add('Trovebox\\Test', __DIR__);
 }
 
-// Include the composer autoloader, and add our tests to it.
-$loader = include dirname(__DIR__) . '/vendor/autoload.php';
-$loader->add('Trovebox\\Test', __DIR__);
 
-
-// Register services with GuzzleTestCase
-Guzzle\Tests\GuzzleTestCase::setMockBasePath(__DIR__ . '/mock');
-
-
-// Allow config overrides in CLI
+// Check for overriden config values
 if (get_cfg_var('CONFIG')) {
-    $_SERVER['OCNFIG'] = get_cfg_var('CONFIG');
+    $_SERVER['CONFIG'] = get_cfg_var('CONFIG');
 }
 
+// Set the config file if not provided by CLI
+if (!isset($_SERVER['CONFIG'])) {
+    $serviceConfig = dirname(__DIR__) . 'test_services.json';
+    
 
-// Set the service configuration file
-// unless it was provider by the CLI
-if ( !isset($_SERVER['CONFIG']) ) {
-    $serviceConfig = dirname(__DIR__) . '/test_services.json';
-    if ( file_exists($serviceConfig) ) {
+    if (file_exists($serviceConfig)) {
         $_SERVER['CONFIG'] = $serviceConfig;
     }
 }
 
-// If the global prefix is 'hostname' (or not set) use crc32 gethostname
-if (!isset($_SERVER['PREFIX']) || $_SERVER['PREFIX'] === 'hostname') {
-    $_SERVER['PREFIX'] = crc32(gethostname());
-}
 
 
-// Instantiate the service builder
-$trovebox = Trovebox\Common\Trovebox::factory( isset($_SERVER['CONFIG']) ? $_SERVER['CONFIG'] : 'test_services.dist.json' );
+// Instantiate the client
+$client = new \Trovebox\Client( isset($_SERVER['CONFIG']) ? $_SERVER['CONFIG'] : 'test_services.dist.json');
 
-// Turn on wire-level logging
-$trovebox->getEventDispatcher()->addListener('service_builder.create_Client', function (\Guzzle\Common\Event $event) {
-    if (isset($_SERVER['WIRE_LOGGING']) && $_SERVER['WIRE_LOGGING']) {
-        $event['client']->addSubscriber(Guzzle\Plugin\Log\LogPlugin::getDebugPlugin());
-    }
-}
-);
+// Enable History
+$history = new History();
+$client->getEmitter()->attach($history);
 
-// Configure the tests to use the created service builder
-Guzzle\Tests\GuzzleTestCase::setServiceBuilder($trovebox);
-
-// Show deprecation warnings
-Guzzle\Common\Version::$emitWarnings = true;
 

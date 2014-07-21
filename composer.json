@@ -25,12 +25,16 @@
 
     "require" : {
         "php" : ">= 5.4.0",
-        "guzzle/guzzle" : ">=3.7.0,<4.0"
+        "guzzlehttp/guzzle" : "4.*",
+        "guzzlehttp/oauth-subscriber" : "*",
+        "guzzlehttp/log-subscriber" : "*",
+        "guzzlehttp/guzzle-services" : "*"
     },
 
     "require-dev" : {
         "monolog/monolog" : "1.4.*",
-        "phpunit/phpunit" : "4.*"
+        "phpunit/phpunit" : "4.*",
+        "psr/log" : "~1.0"
     },
 
     "suggest" : {
@@ -39,8 +43,14 @@
 
 
     "autoload" : {
-        "psr-0" : {
-            "Trovebox" : "src/"
+        "psr-4" : {
+            "Trovebox\\" : "src/"
+        }
+    },
+
+    "autoload-dev" : {
+        "psr-4" : {
+            "Trovebox\\Tests\\" : "tests/"
         }
     }
 }
