@@ -21,12 +21,16 @@
 /**
  * Test Bootstrapper
  */
-
 namespace Trovebox\Test;
+
+$loaderPath = dirname(__DIR__) . '/vendor/autoload.php'; 
+require $loaderPath;
 
 use GuzzleHttp\Subscriber\Mock;
 use GuzzleHttp\Subscriber\History;
 use GuzzleHttp\Message\Response;
+
+use Trovebox\Client;
 
 error_reporting(-1);
 date_default_timezone_set('UTC');
@@ -38,13 +42,6 @@ if (!file_exists(dirname(__DIR__) . '/composer.lock')) {
         . "See http://getcomposer.org for help with installing composer\n");
 }
 
-// Include the composer autoloader
-if (get_cfg_var('trovebox_phar')) {
-    require dirname(__DIR__) . '/vendor/autoload.php';
-    $loader->add('Trovebox\\Test', __DIR__);
-}
-
-
 // Check for overriden config values
 if (get_cfg_var('CONFIG')) {
     $_SERVER['CONFIG'] = get_cfg_var('CONFIG');
@@ -54,12 +51,10 @@ if (get_cfg_var('CONFIG')) {
 if (!isset($_SERVER['CONFIG'])) {
     $serviceConfig = dirname(__DIR__) . 'test_services.json';
     
-
     if (file_exists($serviceConfig)) {
         $_SERVER['CONFIG'] = $serviceConfig;
     }
 }
-
 
 
 // Instantiate the client
@@ -67,6 +62,3 @@ $client = new \Trovebox\Client( isset($_SERVER['CONFIG']) ? $_SERVER['CONFIG'] :
 
 // Enable History
 $history = new History();
-$client->getEmitter()->attach($history);
-
-

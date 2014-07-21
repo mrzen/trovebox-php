@@ -17,7 +17,7 @@ use Trovebox\Photo\PhotoClient;
  *
  * @covers Trovebox\Photo\PhotoClient
  */
-class PhotoTestCase extends \Guzzle\Tests\GuzzleTestCase
+class PhotoTestCase extends \PHPUnit_Framework_TestCase
 {
 
     /**
@@ -25,12 +25,14 @@ class PhotoTestCase extends \Guzzle\Tests\GuzzleTestCase
      */
     public function testFactoryInitializesClient()
     {
-        $cleint = PhotoClient::factory(array(
+        $client = PhotoClient::factory([
             'consumer_key' => 'wow',
             'consumer_secret' => 'much test',
             'authorization_token' => 'very mock',
             'authorization_secret' => 'so tdd'
-        ));
+        ]);
+
+        $this->assertInstanceOf('Trovebox\Photo\PhotoClient' , $client);
 
     }
 

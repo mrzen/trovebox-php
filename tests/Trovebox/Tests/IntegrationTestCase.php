@@ -7,7 +7,7 @@ namespace Trovebox\Tests;
  * Base Integration Test Case
  *
  */
-class IntegrationTestCase extends \Guzzle\Tests\GuzzleTestCase {
+class IntegrationTestCase extends \GuzzleHttp\Tests\ClientTest {
 
     /**
      * Log a message to STDERR

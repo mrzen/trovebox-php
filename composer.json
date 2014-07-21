@@ -8,7 +8,7 @@
 
     "keywords" : ["image","photo","trovebox","REST","API"],
 
-    "license" : "GNU GPL v2 or later",
+    "license" : "GPL-2.0+",
 
     "authors" : [
         {
@@ -49,8 +49,8 @@
     },
 
     "autoload-dev" : {
-        "psr-4" : {
-            "Trovebox\\Tests\\" : "tests/"
+        "psr-0" : {
+            "Trovebox\\Tests" : "tests/"
         }
     }
 }

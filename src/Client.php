@@ -20,7 +20,11 @@
 
 namespace Trovebox;
 
-
+/**
+ * Main Trovebox Client Class
+ *
+ * Client Class
+ */
 class Client {
     
     /**
@@ -40,8 +44,9 @@ class Client {
      *
      * @param array $config Configuration options.
      */
-    public function Client(array $config = array()) {
+    public function Client(array $config = array())
+    {
+        $this->_configuration = $config;
+        $this->_client = new GuzzleHttp\Client($config);
     }
-
-
 }
