@@ -54,7 +54,7 @@ class Trovebox extends ServiceBuilder
         $loader = new ServiceBuilderLoader();
         $loader->addAlias('_trovebox', self::getDefaultServiceDefinition());
 
-        return $loader->load($config, $globalParametsrs);
+        return $loader->load($config, $globalParameters);
             
 
     

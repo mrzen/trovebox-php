@@ -31,7 +31,7 @@ if (get_cfg_var('trovebox_phar')) {
 }
 
 // Include the composer autoloader, and add our tests to it.
-$loader = include dirname(__DIR__) . '/vendor/autoloader.php';
+$loader = include dirname(__DIR__) . '/vendor/autoload.php';
 $loader->add('Trovebox\\Test', __DIR__);
 
 
