@@ -58,7 +58,7 @@ if (!isset($_SERVER['CONFIG'])) {
 
 
 // Instantiate the client
-$client = new \Trovebox\Client( isset($_SERVER['CONFIG']) ? $_SERVER['CONFIG'] : 'test_services.dist.json');
+$client = new Client( isset($_SERVER['CONFIG']) ? $_SERVER['CONFIG'] : 'test_services.dist.json');
 
 // Enable History
 $history = new History();
