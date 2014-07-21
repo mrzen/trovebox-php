@@ -23,16 +23,9 @@ namespace Trovebox;
 /**
  * Main Trovebox Client Class
  *
- * Client Class
  */
-class Client {
+class Client extends \GuzzleHttp\Client {
     
-    /**
-     * @var Underlying Guzzle Client
-     */
-    private $_client;
-
-
     /**
      * @var Configuration
      */
@@ -44,9 +37,60 @@ class Client {
      *
      * @param array $config Configuration options.
      */
-    public function Client(array $config = array())
+    public function __construct($config = null)
     {
-        $this->_configuration = $config;
-        $this->_client = new GuzzleHttp\Client($config);
+        // Load the appropreate configuration
+        $configuration = $this->getConfig($config);
+
+        parent::__construct((array)$configuration);
+    }
+
+
+    /**
+     * Get the Configuration
+     *
+     * @param string|array $config Configuration to use
+     *
+     * @return array Configuration
+     */
+    private function getConfig($config = null)
+    {
+
+        if ($config) {
+            return $this->loadConfig($config);
+        }
+
+        // Check for $_SERVER['CONFIG']
+        if ( isset($_SERVER['CONFIG']) ) {
+            return $this->loadConfig($_SERVER['CONFIG']);
+        }
+
+        return [];
+
+    }
+
+
+    /**
+     * Load the configuration
+     *
+     * @param array|string $config Configuration Source
+     *
+     */
+    private function loadConfig($config) {
+            if (is_string($config)) {
+
+                if (file_exists($config)) {
+                    // $config is path to configuration file
+                    return json_decode(file_get_contents($config));
+                } else {
+                    // $config is configuration data as JSON
+                    return json_decode($config);
+                }
+            }
+
+            if (is_array($config)) {
+                // Config is already an array
+                return $config;
+            }
     }
 }
