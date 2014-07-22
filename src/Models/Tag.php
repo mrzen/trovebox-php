@@ -33,29 +33,29 @@ class Tag
     /**
      * @var Tag ID
      */
-    protected $id;
+    public $id;
 
     /**
      * @var Tag Usage Count
      */
-    protected $count;
+    public $count;
 
 
     /**
      * @var Geo tag Longitude
      */
-    protected $lng;
+    public $lng;
 
     /**
      * @var Geo tag Latitude
      */
-    protected $lat;
+    public $lat;
 
 
     /**
      * @var Email???
      */
-    protected $email;
+    public $email;
 
 
     /**
