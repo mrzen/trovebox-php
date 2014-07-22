@@ -20,7 +20,7 @@
 
     "support" : {
         "issues" : "https://github.com/mrzen/trovebox-php/issues"
-    },#
+    },
 
 
     "require" : {
