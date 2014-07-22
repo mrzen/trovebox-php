@@ -1,7 +1,7 @@
 {
     "base_url" : "http://example.com/",
     "oauth" : {
-        "conumser_key" : "wow",
+        "consumer_key" : "wow",
         "consumer_secret" : "suck test",
         "token" : "very mock",
         "token_secret" : "so tdd"
