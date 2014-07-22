@@ -71,8 +71,7 @@ trait PhotoClient {
         $response = $this->get('/photos/{$id}/view.json');
         $data = $response->json();
         
-        $photo = new Photo($data['result']);
-        
+        $photo = new Photo($data['result'], $this);
         return $photo;
     }
 

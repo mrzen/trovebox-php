@@ -26,11 +26,43 @@ namespace Trovebox\Models;
 
 class Photo extends \stdClass {
     
-    
-    public function __construct(array $data = []) {
+    /**
+     * @var Trovebox Client
+     */
+    private $_client;
+ 
+    /**
+     * Constructor
+     *
+     * @param array  $data Photo Data
+     * @parma &\Trovebox\Client Client which created this photo
+     */
+    public function __construct(array $data = [], \Trovebox\Client &$client = null) {
         foreach($data as $key => $value) {
             $this->$key = $value;
         }
+
+        if ($client) {
+            $this->_client = $client;
+        }
+    }
+
+
+    /**
+     * Get the raw, original image data
+     *
+     * @return \Imagick
+     */
+    public function getOriginalRaw()
+    {
+
+        // Null if there is no client
+        if (!$this->_client) {
+            return null;
+        }
+
+        $response = $this->_client->get($this->pathOriginal);
+        return (string)$response;
     }
 
 }
