@@ -51,7 +51,7 @@ trait PhotoClient {
         $photos = [];
 
         foreach($data['result'] as $result) {
-            $photos[] = new Photo($result);
+            $photos[] = new Photo($result, $this);
         }
 
         return $photos;
