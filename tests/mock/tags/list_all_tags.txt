@@ -1,0 +1,30 @@
+HTTP/1.1 200 OK
+Server: MockServer
+
+{
+  "message":"",
+  "code":200,
+  "result": [
+    {
+      "id": "mountain",
+      "count": 1
+    },
+    {
+      "id": "jaisen",
+      "count": 10,
+      "email": "jaisen@jmathai.com"
+    },
+    {
+      "id": "New York",
+      "count": 9,
+      "latitude": 12.3456,
+      "longitude": 78.9012
+    },
+    {
+      "id": "Sunnyvale",
+      "count":23,
+      "latitude": 13.579,
+      "longitude": 24.68
+    }
+  ]
+}

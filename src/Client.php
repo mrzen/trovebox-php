@@ -22,6 +22,7 @@ namespace Trovebox;
 
 use Trovebox\Hello\Hello;
 use Trovebox\Photo\PhotoClient;
+use Trovebox\Tags\TagsClient;
 
 use GuzzleHttp\Subscriber\Oauth\Oauth1;
 
@@ -33,6 +34,7 @@ class Client extends \GuzzleHttp\Client {
     
     use Hello;
     use PhotoClient;
+    use TagsClient;
     
     /**
      * Create a Client

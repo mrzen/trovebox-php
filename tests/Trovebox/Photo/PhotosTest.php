@@ -54,5 +54,55 @@ class PhotosTest extends \PHPUnit_Framework_TestCase {
 
                 
     }
+
+
+    /**
+     * Test we can provide a single tag
+     */
+    public function testListPhotosbyTag()
+    {
+
+        $trovebox = \Trovebox\Tests\getTestClient();
+
+        $mock = new Mock([
+            MOCK . "photo/list_all_photos.txt"
+        ]);
+
+
+        $trovebox->getEmitter()->attach($mock);
+
+
+        $photos = $trovebox->photos(['tags' => 'example']);
+
+        $this->assertTrue(is_array($photos));
+
+        $this->assertInstanceOf('Trovebox\Models\Photo', $photos[0]);
+
+    }
+
+    
+    /**
+     * Test we can provide an array of tags
+     * and the request will command delimit them
+     */
+    public function testListPhotosByTagArray()
+    {
+
+        $trovebox = \Trovebox\Tests\getTestClient();
+        $mock = new Mock([
+            MOCK . "photo/list_all_photos.txt"
+        ]);
+
+        $trovebox->getEmitter()->attach($mock);
+
+        
+        $photos = $trovebox->photos(['tags' => ['wow','such example','very test','so tdd']]);
+
+        $this->assertTrue(is_array($photos));
+        $this->assertInstanceOf('Trovebox\Models\Photo', $photos[0]);
+
+            
+    }
+     
     
 }

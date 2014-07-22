@@ -27,7 +27,24 @@ use Trovebox\Models\Photo;
 
 trait PhotoClient {
 
+    /**
+     * Query photos
+     *
+     * @param array $query_params Parameters to give the query
+     *                            Can include any of the options referenced in the Trovebox API
+     *
+     * @return array[\Trovebox\Models\Photo] array of photos
+     */
     public function photos(array $query_params = []) {
+
+        /*
+         * If an array of tags is provided,
+         * implode them into a comma delimited list
+         */
+        if (array_key_exists('tags', $query_params) && is_array($query_params['tags'])) {
+            $query_params['tags'] = implode(',', $query_params['tags']);
+        }
+
         $response = $this->get('/photos/list.json', ['query' => $query_params]);
 
         $data = $response->json();
@@ -38,6 +55,25 @@ trait PhotoClient {
         }
 
         return $photos;
+    }
+
+    
+    /**
+     * Get a single photo by ID
+     *
+     * @param string                         $id Trovebox image ID
+     * @param array[\Trovebox\Models\Size]   $returnSizes Return sizes
+     * @param bool                           $generate    Generate images on request
+     */
+    public function photo($id , $returnSizes = null, $generate = false)
+    {
+        
+        $response = $this->get('/photos/{$id}/view.json');
+        $data = $response->json();
+        
+        $photo = new Photo($data['result']);
+        
+        return $photo;
     }
 
 }
