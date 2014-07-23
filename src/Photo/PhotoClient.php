@@ -69,7 +69,7 @@ trait PhotoClient {
     public function photo($id , $returnSizes = null, $generate = false)
     {
         
-        $response = $this->get("/photos/{$id}/view.json");
+        $response = $this->get("/photo/{$id}/view.json");
         $data = $response->json();
         
         $photo = new Photo($data['result'], $this);
