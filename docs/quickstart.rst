@@ -41,12 +41,12 @@ The JSON file should look like this:
 .. code:: javascript
 
    {
-          "base_url" : "http://your-account.troveb.com/api",
+          "base_url" : "http://your-account.trovebox.com/",
           "oatuh" : {
-          "consumer_key" : "YOUR_CONSUMER_KEY",
+          "consumer_key"    : "YOUR_CONSUMER_KEY",
           "consumer_secret" : "YOUR_CONSUMER_SECRET",
-          "token" : "YOUR_TOKEN",
-          "token_secret" : "YOUR_TOKEN_SECRET"
+          "token"           : "YOUR_TOKEN",
+          "token_secret"    : "YOUR_TOKEN_SECRET"
           },
 
           "defaults" : { "auth" : "oauth" }

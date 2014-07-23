@@ -25,6 +25,7 @@ use Trovebox\Photo\PhotoClient;
 use Trovebox\Tags\TagsClient;
 
 use GuzzleHttp\Subscriber\Oauth\Oauth1;
+use GuzzleHttp\Subscriber\History;
 
 /**
  * Main Trovebox Client Class
@@ -35,6 +36,11 @@ class Client extends \GuzzleHttp\Client {
     use Hello;
     use PhotoClient;
     use TagsClient;
+
+    /**
+     * @var HTTP History
+     */
+    private $_history;
     
     /**
      * Create a Client
@@ -53,6 +59,23 @@ class Client extends \GuzzleHttp\Client {
             $oauth = new Oauth1($configuration['oauth']);
             $this->getEmitter()->attach($oauth);
         }
+
+
+        // Attach History
+        $this->_history = new History();
+        $this->getEmitter()->attach($this->_history);
+    }
+
+
+    /**
+     * Get the history
+     *
+     * @return \GuzzleHttp\Subscriber\History  Client History
+     *
+     */
+    public function history()
+    {
+        return $this->_history;
     }
 
 
