@@ -7,7 +7,9 @@ This page describes how to get started using the Trovebox API quickly.
 Installation
 ------------
 
-Install Trovebox-PHP using `Composer <http://getcomposer.org/>`
+Install Trovebox-PHP using `Composer <http://getcomposer.org/>`_
+
+.. code::
 
      shell$ composer install mrzen/trovebox-php
      
@@ -63,6 +65,7 @@ Example
 
 
 .. code:: php
+
           $trovebox = new Trovebox\Client($YOUR_CONFIG);
 
           $trovebox->hello();
@@ -72,6 +75,23 @@ The ``Trovebox\Client::hello`` method will run the Trovebox "Hello" API call to 
 
 
 
+Getting Photos
+%%%%%%%%%%%%%%
+
+Now that we've connected to the Trovebox API, let's get some data.
+
+
+.. code:: php
+5
+          // $trovebox is the trovebox client we created in the previous example
+          
+          $photos = $trovebox->photos(); // Will get the 30 most recent photos
+
+          // $photos is an array of \Trovebox\Models\Photo
    
-   
-         
+          foreach($photos as $photo) {
+              echo $photo . "\n"; // Print out the photo
+          }
+
+
+For more information, see :doc:`Working with photos </photos>`

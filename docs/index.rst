@@ -6,16 +6,27 @@
 Trovebox PHP : Documentation
 ========================================
 
-Contents:
-
-.. toctree::
-   :maxdepth: 2
-
 About
 -----
 
 Trovebox-PHP is a PHP library ustilizing Guzzsle to interact with the Trovebox API.
 This documentation serves to provide functional examples on how to use the library.
 
-* :ref:`search`
+The best way to get started is to read the :doc:`Quickstart Guide </quickstart>`.
 
+
+Requirements
+------------
+
+* PHP ``>=5.4``
+* Composer (to install dependencies)
+* PHP Curl Extension *Recommended*.
+
+
+Table of Contents
+-----------------
+
+.. toctree::
+   :maxdepth: 3
+              
+   quickstart
