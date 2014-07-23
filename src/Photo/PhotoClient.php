@@ -47,6 +47,7 @@ trait PhotoClient {
 
         $response = $this->get('/photos/list.json', ['query' => $query_params]);
 
+
         $data = $response->json();
         $photos = [];
 
