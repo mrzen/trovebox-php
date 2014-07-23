@@ -90,6 +90,8 @@ class Size
         if ($this->_monochrome) {
             $str .= "xBW";
         }
+
+        return $str;
     }
 }
 
