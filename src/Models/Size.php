@@ -79,8 +79,9 @@ class Size
      *
      * @return string Serialized image size
      */
-    public function __toString(){
-        $str = "{$_width}x{$_height}";
+    public function __toString()
+    {
+        $str = "{$this->_width}x{$this->_height}";
 
         if ($this->_cropped) {
             $str .= "xCR";
