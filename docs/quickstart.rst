@@ -82,7 +82,7 @@ Now that we've connected to the Trovebox API, let's get some data.
 
 
 .. code:: php
-5
+
           // $trovebox is the trovebox client we created in the previous example
           
           $photos = $trovebox->photos(); // Will get the 30 most recent photos
