@@ -1,7 +1,12 @@
-test: vendor/bin/phpunit
+
+test:
+	vendor/bin/phpunit
+
+docs:
+	cd docs && make html && cd -
 
 
-
-.PHONY: test
+# For ReadTheDocs
+.PHONY: docs
 
 
