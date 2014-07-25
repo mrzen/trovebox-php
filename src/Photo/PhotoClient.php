@@ -40,9 +40,16 @@ trait PhotoClient {
         /*
          * If an array of tags is provided,
          * implode them into a comma delimited list
+         * (and trim each tag)
          */
         if (array_key_exists('tags', $query_params) && is_array($query_params['tags'])) {
-            $query_params['tags'] = implode(',', $query_params['tags']);
+            $query_params['tags'] = implode(
+                ',',
+                array_map(
+                    function($e){ return trim($e); },
+                    $query_params['tags']
+                )
+            );
         }
 
         $response = $this->get('/photos/list.json', ['query' => $query_params]);

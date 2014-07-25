@@ -18,36 +18,31 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, US.A
  */
 
-namespace Trovebox\Tests\Tags;
-
-use GuzzleHttp\Subscriber\Mock;
+namespace Trovebox\Models;
 
 /**
- * Tags API tests
+ * Collection for photos
+ *
  */
-class TagsTest extends \PHPUnit_Framework_TestCase
+class Photos implements \Iterator
 {
 
-    public function testListTags()
+    /**
+     * @var Current Iteration Position
+     */
+    private $position = 0;
+
+    /**
+     * @var Data Store (array)
+     */
+    private $data = array();
+
+
+    public function __construct()
     {
-        $trovebox = \Trovebox\Tests\getTestClient();
-
-
-        $mock = new Mock([
-            MOCK . "tags/list_all_tags.txt"
-        ]);
-
-
-        $trovebox->getEmitter()->attach($mock);
-
-        $tags = $trovebox->tags();
-
-        $this->assertTrue(is_array($tags));
-
-        foreach($tags as $tag) {
-            $this->assertInstanceOf('Trovebox\Models\Tag', $tag);
-        }
+        
 
     }
+
 
 }

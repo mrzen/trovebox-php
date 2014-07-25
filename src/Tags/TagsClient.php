@@ -74,4 +74,38 @@ trait TagsClient
         
     }
 
+
+    /**
+     * Create a new tag
+     *
+     * @param \Trovebox\Models\Tag &$tag Tag to create
+     *
+     * @return \Trovebox\Models\Tag The created tag
+     */
+    public function createTag(\Trovebox\Models\Tag &$tag)
+    {
+        $response = $this->post(
+            "/tag/create.json", ['query' => [
+            'tag'   => $tag->id,
+            'count' => $tag->count,
+            'email' => $tag->email,
+            'latitude' => $tag->lat,
+            'longitude' => $tag->lng
+        ]]);
+
+        $data = $response->json()['result'];
+        
+        $tag = new \Trovebox\Models\Tag(
+            $data['id'],
+            $data['count'],
+            $data['longitude'],
+            $data['latitude'],
+            $data['email'],
+            $this
+        );
+
+        return $tag;
+
+    }
+
 }

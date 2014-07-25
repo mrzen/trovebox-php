@@ -18,35 +18,45 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, US.A
  */
 
-namespace Trovebox\Tests\Tags;
+namespace Trovebox\Tests\Models;
 
 use GuzzleHttp\Subscriber\Mock;
 
 /**
- * Tags API tests
+ * Test for Tags Model
  */
 class TagsTest extends \PHPUnit_Framework_TestCase
 {
 
-    public function testListTags()
+    /**
+     * Test we create the tag with out any options
+     */
+    public function testCreateNewTag()
     {
-        $trovebox = \Trovebox\Tests\getTestClient();
 
+        $tag = new \Trovebox\Models\Tag();
 
-        $mock = new Mock([
-            MOCK . "tags/list_all_tags.txt"
+        $this->assertInstanceOf('Trovebox\Models\Tag', $tag);
+    }
+
+    /**
+     * Test we can save a tag using `Trovebox\Client::createTag()`
+     */
+    public function testSaveNewTag()
+    {
+
+        $client = \Trovebox\Tests\getTestClient();
+        $tag    = new \Trovebox\Models\Tag('Test Tag');
+        
+        $mock   = new Mock([
+            MOCK . '/tags/create_tag.txt'
         ]);
 
+        $client->getEmitter()->attach($mock);
 
-        $trovebox->getEmitter()->attach($mock);
+        $new = $client->createTag($tag);
 
-        $tags = $trovebox->tags();
-
-        $this->assertTrue(is_array($tags));
-
-        foreach($tags as $tag) {
-            $this->assertInstanceOf('Trovebox\Models\Tag', $tag);
-        }
+        $this->assertInstanceOf('Trovebox\Models\Tag', $tag);
 
     }
 

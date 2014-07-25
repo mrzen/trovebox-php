@@ -61,13 +61,14 @@ class Tag
     /**
      * Constructor
      * 
-     * @param int    $id    Tag ID (from Trovebox)
-     * @param int    $count Usage count
-     * @param float  $lng   Longitude (for Geo tag)
-     * @param float  $lat   Latitude   (for Geo tag)
-     * @param string $email ???
+     * @param int               $id     Tag ID (from Trovebox)
+     * @param int               $count  Usage count
+     * @param float             $lng    Longitude (for Geo tag)
+     * @param float             $lat    Latitude   (for Geo tag)
+     * @param string            $email  ???
+     * @param \Trovebox\Client &$client Reference to the API client
      */
-    public function __construct($id = 0, $count = 0, $lng = null, $lat = null, $email = null)
+    public function __construct($id = 0, $count = 0, $lng = null, $lat = null, $email = null, \Trovebox\Client &$client = null)
     {
         $this->id    = $id;
         $this->count = $count;
