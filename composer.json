@@ -24,14 +24,12 @@
         "php": ">= 5.4.0",
         "guzzlehttp/guzzle": "4.*",
         "guzzlehttp/oauth-subscriber": "*",
-        "guzzlehttp/log-subscriber": "*",
-        "guzzlehttp/guzzle-services": "*"
+        "guzzlehttp/log-subscriber": "*"
     },
     "require-dev": {
         "monolog/monolog": ">1.6.0",
         "phpunit/phpunit": "4.*",
-        "psr/log": "~1.0",
-        "phpdocumentor/phpdocumentor": "v2.6.1"
+        "psr/log": "~1.0"
     },
     "suggest": {
         "monolog/monolog": "Logging support"
